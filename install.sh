@@ -40,9 +40,21 @@ get_arch() {
 
 # Get the latest release tag from the GitHub API.
 get_latest_release() {
-  curl --silent "https://api.github.com/repos/$REPO/releases/latest" |
-  grep '"tag_name":' |
-  sed -E 's/.*"([^"]+)".*/\1/'
+  API_URL="https://api.github.com/repos/$REPO/releases"
+  
+  # Use python if available, otherwise fall back to perl.
+  if command -v python >/dev/null 2>&1; then
+    # This python script now checks if the response is a list and not empty.
+    curl -sL "$API_URL" | python -c "import sys, json; data = json.load(sys.stdin); print(data[0]['tag_name'] if isinstance(data, list) and data else '')"
+  elif command -v perl >/dev/null 2>&1; then
+    curl -sL "$API_URL" | perl -ne 'if (/\"tag_name\":\s*\"([^\"]+)\"/) { print $1; exit }'
+  else
+    # Fallback to grep/sed for systems without python/perl
+    curl -sL "$API_URL" |
+    grep '"tag_name":' |
+    head -n 1 |
+    sed -E 's/.*"([^"]+)".*/\1/'
+  fi
 }
 
 main() {
@@ -51,7 +63,8 @@ main() {
   VERSION=$(get_latest_release)
 
   if [ -z "$VERSION" ]; then
-    echo "Error: Could not find the latest release version for $REPO."
+    echo "Error: Could not find any release version for $REPO."
+    echo "Please check that the repository has releases and that you are not being rate-limited by the GitHub API."
     exit 1
   fi
 
