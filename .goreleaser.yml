@@ -33,12 +33,7 @@ archives:
       - LICENSE
       - README.md
 
-  # zip format to support installation for windows
-  - format: zip
-    name_template: >-
-      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
-    files:
-      - LICENSE
-      - README.md
-    replacements:
-      windows: windows
+    # zip format to support installation for windows
+    format_overrides:
+      - goos: windows
+        format: zip
