@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 # This is the configuration for GoReleaser
+version: 2
 project_name: gitx
 
 builds:
@@ -31,9 +32,9 @@ archives:
     files:
       - LICENSE
       - README.md
-  
+
   # zip format to support installation for windows
-  - format: zip        
+  - format: zip
     name_template: >-
       {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
     files:
