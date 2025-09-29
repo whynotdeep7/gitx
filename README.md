@@ -31,9 +31,8 @@ gitx
 ## Contributing
 
 Contributions are welcome! Please feel free to open an issue or submit a pull request on our GitHub repository.
-Join the discussion on our Discord server:
-[![Join the chat at Discord](https://img.shields.io/discord/1253533286152671292?logo=discord&label=Discord&color=7289DA&style=for-the-badge)](https://discord.gg/DphdFXd3Bh)
 
+Join the discussion on our Discord server: <br> [![Join the chat at Discord](https://img.shields.io/discord/1253533286152671292?logo=discord&label=Discord&color=7289DA&style=for-the-badge)](https://discord.gg/DphdFXd3Bh)
 
 ## Credits
 
